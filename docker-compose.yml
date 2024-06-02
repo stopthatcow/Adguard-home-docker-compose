@@ -1,0 +1,21 @@
+version: "3"
+services:
+  adguardhome:
+    image: adguard/adguardhome
+    container_name: adguardhome
+    ports:
+      - 53:53/tcp # DNS
+      - 53:53/udp # DNS
+      - 853:853/tcp # DNS over TLS
+      - 3000:3000/tcp # HTTP (setup webportal)
+      - 80:80/tcp     # HTTP (webportal)
+      - 443:443/tcp   # HTTPS (webportal)
+    volumes:
+      - adguardhome_work:/opt/adguardhome/work
+      - adguardhome_conf:/opt/adguardhome/conf
+    restart: unless-stopped
+volumes:
+    adguardhome_work:
+      external: true
+    adguardhome_conf:
+      external: true
